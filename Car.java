@@ -13,10 +13,21 @@ public final class Car {
         this.hasTripComputer = builder.hasTripComputer;
     }
 
-    public int getSeats() { return seats; }
-    public String getEngine() { return engine; }
-    public boolean hasGps() { return hasGps; }
-    public boolean hasTripComputer() { return hasTripComputer; }
+    public int getSeats() { 
+        return seats; 
+    }
+
+    public String getEngine() { 
+        return engine; 
+    }
+
+    public boolean hasGps() { 
+        return hasGps; 
+    }
+
+    public boolean hasTripComputer() { 
+        return hasTripComputer; 
+    }
 
     @Override
     public String toString() {
@@ -31,15 +42,12 @@ public final class Car {
         private boolean hasTripComputer = false;
 
         public Builder setSeats(int seats) {
-            if (seats <= 0) {
-                throw new IllegalArgumentException("Seats count must be greater than 0");
-            }
             this.seats = seats;
             return this;
         }
 
         public Builder setEngine(String engine) {
-            this.engine = Objects.requireNonNull(engine, "Engine cannot be null");
+            this.engine = engine;
             return this;
         }
 
@@ -54,6 +62,12 @@ public final class Car {
         }
 
         public Car build() {
+            if (seats <= 0) {
+                throw new IllegalStateException("Cannot build Car: Seats count must be greater than 0");
+            }
+            if (engine == null || engine.isBlank()) {
+                throw new IllegalStateException("Cannot build Car: Engine type cannot be null or empty");
+            }
             return new Car(this);
         }
     }
