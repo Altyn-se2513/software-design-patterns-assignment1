@@ -40,6 +40,7 @@ public class Car {
     private final String engine;
     public Car build() { ... }
 }
+'''java
 Principle 2: Small, Single-Responsibility Methods
 Each method in the builder serves a single purpose (setting a specific field or enabling a feature) and returns this to support method chaining.
 
