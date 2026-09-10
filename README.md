@@ -63,14 +63,16 @@ public Car build() {
     }
     return new Car(this);
 }
+
 Principle 4: No Magic Numbers or Magic Strings
-Default values and limits are explicitly declared and clear within the builder context.
+Explicit constants and clear, informative exception messages are used instead of hardcoded numbers or generic error codes.
 
 Before:
 if (s <= 0) throw new RuntimeException("Err 1");
-after
+
+After:
 if (seats <= 0) {
-    throw new IllegalArgumentException("Seats count must be greater than 0");
+    throw new IllegalStateException("Cannot build Car: Seats count must be greater than 0");
 }
 Principle 5: Encapsulation & Immutability
 The Car class is marked as final, all fields are private final, and there are no public setters. The constructor is private, enforcing object creation exclusively through the Builder.
