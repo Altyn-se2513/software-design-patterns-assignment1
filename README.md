@@ -26,7 +26,7 @@ Below are 5 Clean Code principles explicitly identified and justified in this im
 ### Principle 1: Meaningful, Intention-Revealing Names
 Classes, variables, and methods clearly indicate their intent without needing unnecessary comments.
 
-* **Before:**
+Before
 ```java
 public class C {
     private int s;
@@ -34,7 +34,7 @@ public class C {
     public C b() { ... }
 }
 
-* **After**
+After
 public class Car {
     private final int seats;
     private final String engine;
