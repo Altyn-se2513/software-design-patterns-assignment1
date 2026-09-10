@@ -35,7 +35,7 @@ public Builder setSeats(int seats) {
     this.seats = seats;
     return this; // Focuses solely on setting seats and returning builder instance
 } ```
-Principle 3: Validated Construction (Fail-Fast)
+### Principle 3: Validated Construction (Fail-Fast)
 The build() method verifies that the object is in a valid state before creation, throwing descriptive runtime exceptions on invalid input.
 ```java
 // Annotated Excerpt from Car.java:
@@ -48,7 +48,7 @@ public Car build() {
     }
     return new Car(this);
 }```
-Principle 4: Prefer Exceptions to Returning Error Codes
+### Principle 4: Prefer Exceptions to Returning Error Codes
 Invalid states throw clear IllegalStateException rather than returning null or negative error codes.
 ```java
 // Annotated Excerpt from Main.java:
