@@ -59,7 +59,9 @@ public Car build() {
         throw new IllegalStateException("Cannot build Car: Seats count must be greater than 0");
     }
     if (engine == null || engine.isBlank()) {
-        throw new IllegalStateException("Cannot build Car: Engine cannot be empty");
+        throw new IllegalStateException(
+            "Cannot build Car: Engine cannot be empty"
+        );
     }
     return new Car(this);
 }
