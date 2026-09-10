@@ -1,107 +1,95 @@
 # Assignment 1 — Builder Pattern
 
-1. Domain Description
-
+## 1. Domain Description
 This project demonstrates the **Builder Pattern** applied to a **Car Manufacturing System**.
 
-Constructing a `Car` object involves multiple optional parameters and configurations (e.g., number of seats, engine type, GPS installation, trip computer). Using standard constructors with many parameters leads to the "telescoping constructor" anti-pattern, making the code hard to read and error-prone.
-
-The Builder pattern provides a flexible, step-by-step assembly process using a fluent API, enforces validity checks upon object construction, and allows pre-configured configurations using a `CarDirector`.
+Constructing a `Car` involves optional parameters and configurations (e.g., seats, engine, GPS, trip computer). The Builder pattern replaces telescoping constructors with a flexible step-by-step assembly process, enforces object validation, and allows pre-configured setups using a `CarDirector`.
 
 ---
 
-2. Architecture & Components
-
-* **Product (`Car`):** A complex, immutable object representing the final car with properties like seats, engine, GPS, and trip computer.
+## 2. Architecture & Components
+* **Product (`Car`):** An immutable object representing the final car with properties: `seats`, `engine`, `hasGps`, and `hasTripComputer`.
 * **Builder (`Car.Builder`):** A static inner class providing step-by-step assembly methods with fluent method chaining.
-* **Director (`CarDirector`):** Orchestrates common build sequences (e.g., *Sports Car*, *City Car*, *Base Car*).
-* **Client (`Main`):** Tests the creation of products using both the `CarDirector` and manual custom configurations.
+* **Director (`CarDirector`):** Orchestrates common build sequences (*Sports Car*, *City Car*, *Base Car*).
+* **Client (`Main`):** Tests the creation of products using both the `CarDirector` and validates invalid states.
 
 ---
 
-3. Clean Code Principles Applied
-
-Below are 5 Clean Code principles explicitly identified and justified in this implementation:
+## 3. Clean Code Principles Applied
 
 ### Principle 1: Meaningful, Intention-Revealing Names
-Classes, variables, and methods clearly indicate their intent without needing unnecessary comments.
-
-Before
+Classes, variables, and methods clearly state their purpose without needing extra comments.
 ```java
-public class C {
-    private int s;
-    private String e;
-    public C b() { ... }
+// Annotated Excerpt from CarDirector.java:
+public void constructSportsCar(Car.Builder builder) {
+    builder.setSeats(2)
+           .setEngine("V8 Turbo")
+           .setGps(true)
+           .setTripComputer(true);
 }
-```
-After
-```java
-public class Car {
-    private final int seats;
-    private final String engine;
-    public Car build() { ... }
-}
-```
-Principle 2: Small, Single-Responsibility Methods
-Each method in the builder serves a single purpose (setting a specific field or enabling a feature) and returns this to support method chaining.
 
-Annotated Code Excerpt:
-```java
-// Method focuses solely on setting the seats and supporting fluent API
+### Principle 2: Small Methods (Do One Thing)
+Each method in the builder and director serves a single responsibility and supports method chaining.
+```java // Annotated Excerpt from Car.java:
 public Builder setSeats(int seats) {
     this.seats = seats;
-    return this;
-}
-```
+    return this; // Focuses solely on setting seats and returning builder instance
+} ```
 Principle 3: Validated Construction (Fail-Fast)
-The build() method verifies that the object is in a valid state before creation, throwing descriptive runtime exceptions on invalid state.
-
-Annotated Code Excerpt:
+The build() method verifies that the object is in a valid state before creation, throwing descriptive runtime exceptions on invalid input.
 ```java
+// Annotated Excerpt from Car.java:
 public Car build() {
-    // Validates object state before instantiation
     if (seats <= 0) {
         throw new IllegalStateException("Cannot build Car: Seats count must be greater than 0");
     }
     if (engine == null || engine.isBlank()) {
-        throw new IllegalStateException(
-            "Cannot build Car: Engine cannot be empty"
-        );
+        throw new IllegalStateException("Cannot build Car: Engine must not be empty");
     }
     return new Car(this);
-}
-```
+}```
 Principle 4: Prefer Exceptions to Returning Error Codes
-
-Invalid object states are reported through descriptive exceptions (IllegalStateException) during build() instead of returning null or error codes.
-Before:
+Invalid states throw clear IllegalStateException rather than returning null or negative error codes.
 ```java
-if (s <= 0) throw new RuntimeException("Err 1");
-```
-After:
-```java
-if (seats <= 0) {
-    throw new IllegalStateException("Cannot build Car: Seats count must be greater than 0");
-}
-```
+// Annotated Excerpt from Main.java:
+try {
+    new Car.Builder().setSeats(0).setEngine("Test Engine").build();
+} catch (IllegalStateException e) {
+    System.out.println(e.getMessage()); // Handles clear exception
+} ```
 Principle 5: Encapsulation & Immutability
-The Car class is marked as final, all fields are private final, and there are no public setters. The constructor is private, enforcing object creation exclusively through the Builder.
-
-Annotated Code Excerpt:
+The Car class is final, fields are private final, and the constructor is private, enforcing modification only via Builder during creation.
 ```java
+// Annotated Excerpt from Car.java:
 public final class Car {
     private final int seats;
     private final String engine;
 
-    // Private constructor prevents direct instantiation
-    private Car(Builder builder) {
+    private Car(Builder builder) { // Private constructor prevents direct instantiation
         this.seats = builder.seats;
         this.engine = builder.engine;
     }
 }
 ```
+4. How to Run & Output
+How to Run
+Clone the repository.
 
-4. How to Run
-Clone the repository
-Open the project in IntelliJ IDEA.
-Locate src/Main.java and execute the main method.
+Open in Java IDE (IntelliJ IDEA recommended).
+
+Run src/Main.java.
+
+Example Output
+```java
+Sports Car:
+Car{seats=2, engine='V8 Turbo', hasGps=true, hasTripComputer=true}
+
+City Car:
+Car{seats=4, engine='1.6L Eco', hasGps=true, hasTripComputer=false}
+
+Base Car:
+Car{seats=5, engine='Standard Engine', hasGps=false, hasTripComputer=false}
+
+Validation test:
+Cannot build Car: Seats count must be greater than 0
+```
