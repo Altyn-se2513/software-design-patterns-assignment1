@@ -33,7 +33,7 @@ public class C {
     private String e;
     public C b() { ... }
 }
-java```
+```java
 After
 ```java
 public class Car {
