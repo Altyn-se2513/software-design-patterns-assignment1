@@ -1,6 +1,6 @@
 # Assignment 1 — Builder Pattern
 
-## 1. Domain Description
+1. Domain Description
 
 This project demonstrates the **Builder Pattern** applied to a **Car Manufacturing System**.
 
@@ -10,7 +10,7 @@ The Builder pattern provides a flexible, step-by-step assembly process using a f
 
 ---
 
-## 2. Architecture & Components
+2. Architecture & Components
 
 * **Product (`Car`):** A complex, immutable object representing the final car with properties like seats, engine, GPS, and trip computer.
 * **Builder (`Car.Builder`):** A static inner class providing step-by-step assembly methods with fluent method chaining.
@@ -19,7 +19,7 @@ The Builder pattern provides a flexible, step-by-step assembly process using a f
 
 ---
 
-## 3. Clean Code Principles Applied
+3. Clean Code Principles Applied
 
 Below are 5 Clean Code principles explicitly identified and justified in this implementation:
 
