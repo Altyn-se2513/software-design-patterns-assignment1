@@ -75,7 +75,7 @@ public final class Car {
     }
 }
 ```
-4. How to Run & Output
+### 4. How to Run & Output
 How to Run
 Clone the repository.
 
