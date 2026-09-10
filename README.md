@@ -34,7 +34,7 @@ public class C {
     public C b() { ... }
 }
 
-after
+* **After**
 public class Car {
     private final int seats;
     private final String engine;
