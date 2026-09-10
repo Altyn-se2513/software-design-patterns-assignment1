@@ -61,7 +61,7 @@ try {
 }
 ```
 
-Principle 5: Encapsulation & Immutability
+### Principle 5: Encapsulation & Immutability
 The Car class is final, fields are private final, and the constructor is private, enforcing modification only via Builder during creation.
 ```java
 // Annotated Excerpt from Car.java:
