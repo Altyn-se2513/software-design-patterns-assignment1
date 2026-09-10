@@ -41,7 +41,7 @@ public class Car {
     private final String engine;
     public Car build() { ... }
 }
-java```
+```
 Principle 2: Small, Single-Responsibility Methods
 Each method in the builder serves a single purpose (setting a specific field or enabling a feature) and returns this to support method chaining.
 
@@ -52,7 +52,7 @@ public Builder setSeats(int seats) {
     this.seats = seats;
     return this;
 }
-java```
+```
 Principle 3: Validated Construction (Fail-Fast)
 The build() method verifies that the object is in a valid state before creation, throwing descriptive runtime exceptions on invalid state.
 
@@ -70,20 +70,20 @@ public Car build() {
     }
     return new Car(this);
 }
-java```
+```
 Principle 4: Prefer Exceptions to Returning Error Codes
 
 Invalid object states are reported through descriptive exceptions (IllegalStateException) during build() instead of returning null or error codes.
 Before:
 ```java
 if (s <= 0) throw new RuntimeException("Err 1");
-java```
+```
 After:
 ```java
 if (seats <= 0) {
     throw new IllegalStateException("Cannot build Car: Seats count must be greater than 0");
 }
-java```
+```
 Principle 5: Encapsulation & Immutability
 The Car class is marked as final, all fields are private final, and there are no public setters. The constructor is private, enforcing object creation exclusively through the Builder.
 
@@ -99,7 +99,7 @@ public final class Car {
         this.engine = builder.engine;
     }
 }
-java```
+```
 
 4. How to Run
 Clone the repository
