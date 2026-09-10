@@ -64,9 +64,9 @@ public Car build() {
     return new Car(this);
 }
 
-Principle 4: No Magic Numbers or Magic Strings
-Explicit constants and clear, informative exception messages are used instead of hardcoded numbers or generic error codes.
+Principle 4: Prefer Exceptions to Returning Error Codes
 
+Invalid object states are reported through descriptive exceptions (IllegalStateException) during build() instead of returning null or error codes.
 Before:
 if (s <= 0) throw new RuntimeException("Err 1");
 
