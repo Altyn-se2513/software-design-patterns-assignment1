@@ -10,11 +10,14 @@ public class CarDirector {
     public void constructCityCar(Car.Builder builder) {
         builder.setSeats(4)
                 .setEngine("1.6L Eco")
-                .setGps(true);
+                .setGps(true)
+                .setTripComputer(false);
     }
 
     public void constructBaseCar(Car.Builder builder) {
         builder.setSeats(5)
-                .setEngine("Standard Engine");
+                .setEngine("Standard Engine")
+                .setGps(false)
+                .setTripComputer(false);
     }
 }
